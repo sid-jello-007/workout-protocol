@@ -1,0 +1,11 @@
+{
+  "name": "workout-protocol",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Calorie, bodyweight trend and training plan app. No build step.",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "npx serve ."
+  }
+}

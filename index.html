@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workout Protocol</title>
+  <meta name="description" content="Set calorie and macro targets, track bodyweight trend, and generate a training plan. Runs fully in the browser." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%274%27 fill=%27%232f6f5e%27/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>Workout Protocol</h1>
+      <p class="sub">Targets, trend and training plan in one place. Your data stays in this browser.</p>
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="targets" aria-selected="true">1. Targets</button>
+        <button role="tab" data-tab="log" aria-selected="false">2. Log and trend</button>
+        <button role="tab" data-tab="train" aria-selected="false">3. Training plan</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- TARGETS -->
+    <section id="targets" class="panel" role="tabpanel">
+      <form id="profile" class="grid">
+        <label>Sex
+          <select name="sex"><option value="male">Male</option><option value="female">Female</option></select>
+        </label>
+        <label>Age <input name="age" type="number" min="16" max="90" value="30" required /></label>
+        <label>Height (cm) <input name="heightCm" type="number" min="120" max="230" value="175" required /></label>
+        <label>Weight (kg) <input name="weightKg" type="number" step="0.1" min="35" max="250" value="80" required /></label>
+        <label class="wide">Activity
+          <select name="activity"></select>
+        </label>
+        <label>Goal weight (kg) <input name="goalKg" type="number" step="0.1" min="35" max="250" value="74" /></label>
+        <label>Rate (kg per week)
+          <select name="rate">
+            <option value="-0.75">Lose 0.75</option>
+            <option value="-0.5" selected>Lose 0.5</option>
+            <option value="-0.25">Lose 0.25</option>
+            <option value="0">Maintain</option>
+            <option value="0.25">Gain 0.25</option>
+            <option value="0.5">Gain 0.5</option>
+          </select>
+        </label>
+      </form>
+
+      <div class="cards" id="targetCards"></div>
+      <p class="note" id="guardrail"></p>
+      <h3>Projected bodyweight</h3>
+      <div id="projection" class="chart"></div>
+    </section>
+
+    <!-- LOG -->
+    <section id="log" class="panel" role="tabpanel" hidden>
+      <form id="logForm" class="grid">
+        <label>Date <input name="date" type="date" required /></label>
+        <label>Morning weight (kg) <input name="weightKg" type="number" step="0.1" /></label>
+        <label>Calories eaten <input name="kcal" type="number" step="10" /></label>
+        <button type="submit" class="primary">Save day</button>
+      </form>
+      <div class="cards" id="logCards"></div>
+      <h3>Scale weight vs 7 day trend</h3>
+      <div id="trend" class="chart"></div>
+      <details>
+        <summary>Entries (<span id="count">0</span>)</summary>
+        <table id="entries"><thead><tr><th>Date</th><th>kg</th><th>kcal</th><th></th></tr></thead><tbody></tbody></table>
+        <p><button type="button" id="demo">Load 4 weeks of sample data</button> <button type="button" id="clear">Clear all</button></p>
+      </details>
+    </section>
+
+    <!-- TRAINING -->
+    <section id="train" class="panel" role="tabpanel" hidden>
+      <form id="planForm" class="grid">
+        <label>Days per week
+          <select name="daysPerWeek"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select>
+        </label>
+        <label>Experience
+          <select name="experience"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>
+        </label>
+        <label>Equipment
+          <select name="equipment"><option value="gym">Full gym</option><option value="dumbbells">Dumbbells only</option><option value="bodyweight">Bodyweight</option></select>
+        </label>
+      </form>
+      <div id="plan"></div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    Estimates only, not medical advice. Built by <a href="https://github.com/sid-jello-007">Siddharth Narayanan</a>.
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
